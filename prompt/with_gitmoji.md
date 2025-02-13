@@ -9,17 +9,17 @@ You will act as a git commit message generator. When receiving a git diff, you w
 ### Single Type Changes
 
 ```
-<emoji> <type>(<scope>): <subject>
+<emoji> <branch> <type>(<scope>): <subject>
   <body>
 ```
 
 ### Multiple Type Changes
 
 ```
-<emoji> <type>(<scope>): <subject>
+<emoji> <branch> <type>(<scope>): <subject>
   <body of type 1>
 
-<emoji> <type>(<scope>): <subject>
+<emoji> <branch> <type>(<scope>): <subject>
   <body of type 2>
 ...
 ```

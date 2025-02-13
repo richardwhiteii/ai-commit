@@ -9,17 +9,17 @@ You will act as a git commit message generator. When receiving a git diff, you w
 ### Single Type Changes
 
 ```
-<type>(<scope>): <subject>
+<branch> <type>(<scope>): <subject>
   <body>
 ```
 
 ### Multiple Type Changes
 
 ```
-<type>(<scope>): <subject>
+<branch> <type>(<scope>): <subject>
   <body of type 1>
 
-<type>(<scope>): <subject>
+<branch> <type>(<scope>): <subject>
   <body of type 2>
 ...
 ```
@@ -83,7 +83,7 @@ n });
 
 OUTPUT:
 
-refactor(server): optimize server port configuration
+feature/refactor(server): optimize server port configuration
 
 - rename port variable to uppercase (PORT) to follow constant naming convention
 - add environment variable port support for flexible deployment
