@@ -13,11 +13,13 @@ import { GeminiAPI } from './gemini-utils';
  *
  * @param {string} diff - The diff string representing changes to be committed.
  * @param {string} additionalContext - Additional context for the changes.
+ * @param {string} branchName - The current branch name.
  * @returns {Promise<Array<{ role: string, content: string }>>} - A promise that resolves to an array of messages for the chat completion.
  */
 const generateCommitMessageChatCompletionPrompt = async (
   diff: string,
-  additionalContext?: string
+  additionalContext?: string,
+  branchName?: string
 ) => {
   const INIT_MESSAGES_PROMPT = await getMainCommitPrompt();
   const chatContextAsCompletionRequest = [...INIT_MESSAGES_PROMPT];
@@ -31,7 +33,7 @@ const generateCommitMessageChatCompletionPrompt = async (
 
   chatContextAsCompletionRequest.push({
     role: 'user',
-    content: diff
+    content: `Branch: ${branchName}\n${diff}`
   });
   return chatContextAsCompletionRequest;
 };
@@ -98,9 +100,13 @@ export async function generateCommitMsg(arg) {
           ? 'Analyzing changes with additional context...'
           : 'Analyzing changes...'
       });
+
+      const branchName = await repo.getBranch();
+
       const messages = await generateCommitMessageChatCompletionPrompt(
         diff,
-        additionalContext
+        additionalContext,
+        branchName
       );
 
       progress.report({
